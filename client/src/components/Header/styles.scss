@@ -1,0 +1,107 @@
+@import '../../styles/variables';
+
+.header-input {
+	color: var(--text-primary, $primary-color-font);
+	border: 1px solid var(--border-color, $color-lighter-gray);
+	border-radius: 4px;
+	background-color: transparent;
+	width: max-content;
+	cursor: pointer;
+	padding: 8px;
+	border-radius: 3px;
+}
+
+.header-input:hover {
+	background-color: var(--bg-hover, #f1f3f4);
+}
+
+.header{
+	display: flex;
+	height: 64px;
+	border-bottom: 1px solid var(--border-color, $color-lighter-gray);
+	background-color: var(--bg-primary, #ffffff);
+	min-width: min-content;
+	width: 100%;
+	&__inner {
+		width: 100%;
+		div:not(.logo):not([class^=dialog-inner]):not([class^=calendar]):not([class^=numerical-day]){
+			position: relative;
+			gap: 0 1rem;
+		}
+	}
+}
+
+.header-text {
+	font-family: 'Noto Sans SC', Helvetica, Arial, sans-serif;
+	width: max-content;
+	font-size: 1.1rem;
+	color: var(--text-secondary, #5f6368);
+}
+
+.logo{
+	&__width{
+	@include isometric-dim($size: 40px);
+		.logo-img {
+			@include isometric-dim($size: 40px);
+		}
+	}
+	&__text {
+		font-family: 'Product-Sans', Arial, sans-serif;
+		color: var(--text-secondary, #5f6368);
+		font-size: 20px;
+		font-weight: 500;
+	}
+}
+
+.settings-icon-wrapper {
+	@include isometric-dim($size: 40px);
+	background-color: transparent;
+	border-radius: 50%;
+	& > img {
+		@include isometric-dim($size: 30px);
+	}
+}
+
+.user-image-wrapper {
+	@include isometric-dim($size: 40px);
+	background-color: transparent;
+	border-radius: 50%;
+	& > span {
+		line-height: 10px;
+	}
+	& img {
+		border-radius: 50%;
+		@include isometric-dim($size: 40px);
+	}
+	border: 1px solid $color-lighter-gray;
+}
+
+.sign-out-btn {
+	line-height: 23px;
+}
+
+.theme-toggle {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	background: transparent;
+	border: none;
+	margin: 0 4px;
+	transition: background-color 0.2s;
+	color: var(--text-primary, #3c4043);
+	
+	&:hover {
+		background-color: var(--bg-hover, rgba(60, 64, 67, 0.08));
+	}
+
+	.theme-icon {
+		width: 20px;
+		height: 20px;
+		stroke: currentColor;
+		fill: none;
+		transition: color 0.2s;
+	}
+}
