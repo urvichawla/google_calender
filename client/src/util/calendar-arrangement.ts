@@ -1,13 +1,10 @@
 import dayjs, { Dayjs } from 'dayjs';
 
-import { hasOnlyDigits, objKeysToArr } from './reusable-funcs';
+import { hasOnlyDigits } from './reusable-funcs';
 import {
 	CalendarUnits,
 	DateUnits,
 } from '../contexts/CalendarConfigContext/index.model';
-
-// An array that contains three or more elements
-type ArrayThreeOrMore<T> = [T, T, ...T[]];
 
 type AvailableMinutes = '00' | '15' | '30' | '45';
 
