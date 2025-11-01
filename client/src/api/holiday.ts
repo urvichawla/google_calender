@@ -15,8 +15,9 @@ interface ConvertExternalEventsToCalendarProps {
 }
 
 export async function getHolidayEventsByRegion(region: string) {
-	const holidayApiUrl = `${process.env.REACT_APP_CALENDAR_APP_URL || 'http://localhost:5001/api'}/holiday/${region}`;
-	if (!holidayApiUrl) {
+	const baseUrl = process.env.REACT_APP_CALENDAR_APP_URL || 'http://localhost:5001/api';
+	const holidayApiUrl = `${baseUrl.replace(/\/$/, '')}/holiday/${region}`;
+	if (!baseUrl) {
 		throw new Error('REACT_APP_CALENDAR_APP_URL env var not set.');
 	}
 
