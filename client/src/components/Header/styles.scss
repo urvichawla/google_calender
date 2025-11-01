@@ -59,6 +59,12 @@
 	border-radius: 50%;
 	& > img {
 		@include isometric-dim($size: 30px);
+		filter: $filtered-color-light;
+		transition: filter 0.3s;
+	}
+	
+	[data-theme='dark'] & > img {
+		filter: $filtered-color-white;
 	}
 }
 

@@ -21,17 +21,17 @@ export default function Switcher(props: SwitcherProps): JSX.Element {
 		goNext,
 	} = props;
 	return (
-		<div style={containerStyles}>
+		<div style={containerStyles} className="switcher-container">
 			{
 				goPrev === undefined ? null :
 					<button className='clear-btn' onClick={goPrev}>
-						<img src={ChevronLeft} />
+						<img className="switcher-arrow" src={ChevronLeft} alt="Previous" />
 					</button>
 			}
 			{
 				goNext === undefined ? null :
 					<button className='clear-btn' onClick={goNext}>
-						<img src={ChevronRight} />
+						<img className="switcher-arrow" src={ChevronRight} alt="Next" />
 					</button>
 			}
 		</div>

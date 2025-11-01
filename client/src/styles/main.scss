@@ -85,6 +85,15 @@ button:hover > [class^=icon]{
 	filter: $filtered-color-dark;
 }
 
+.switcher-arrow {
+	filter: $filtered-color-light;
+	transition: filter 0.3s;
+}
+
+[data-theme='dark'] .switcher-arrow {
+	filter: $filtered-color-white;
+}
+
 /* global input elements stylings */
 [class^=clear-btn] {
 	background-color: transparent;
