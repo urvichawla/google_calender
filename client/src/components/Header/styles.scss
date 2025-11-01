@@ -31,6 +31,13 @@
 	}
 }
 
+.header-text {
+	font-family: 'Noto Sans SC', Helvetica, Arial, sans-serif;
+	width: max-content;
+	font-size: 1.1rem;
+	color: var(--text-secondary, #5f6368);
+}
+
 @media (max-width: $screen-breakpoint-md) {
 	.header {
 		height: 56px;
@@ -114,13 +121,6 @@
 		padding: 5px 6px;
 		font-size: 12px;
 	}
-}
-
-.header-text {
-	font-family: 'Noto Sans SC', Helvetica, Arial, sans-serif;
-	width: max-content;
-	font-size: 1.1rem;
-	color: var(--text-secondary, #5f6368);
 }
 
 .logo{

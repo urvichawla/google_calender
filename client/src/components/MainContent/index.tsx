@@ -124,7 +124,7 @@ export default function MainContent(props: MainContentProps):
           <div 
             className='sidebar-overlay'
             onClick={() => {
-              setVisibilities((vis: any) => ({ ...vis, sidebar: false }));
+              setVisibilities((vis) => ({ ...vis, sidebar: false }));
             }}
           />
         )}
