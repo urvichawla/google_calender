@@ -19,7 +19,7 @@ const {
 	get,
 } = LocalStorageHelper;
 
-
+// eslint-disable-next-line max-statements
 export default function executeAction<
 	State extends Schedule | Calendar,
 	Action extends CalendarListActions | ScheduleActions
@@ -46,9 +46,9 @@ export default function executeAction<
 
 			if (action.payload.whereTo === 'cloud' || action.payload.whereTo === 'both') {
 				if (authenticatedUserId) {
-			
+
 					apiCall.create(authenticatedUserId, addedItem as any)
-						
+					
 						.then((response: any) => {
 							if (response) {
 								console.log('Item created successfully in database');
@@ -74,7 +74,7 @@ export default function executeAction<
 
 			if (action.payload.whereTo === 'cloud' || action.payload.whereTo === 'both') {
 				if (authenticatedUserId) {
-			
+					// eslint-disable-next-line @typescript-eslint/no-explicit-any
 					apiCall.createMultiple(authenticatedUserId, addedItems as any[])
 						.catch(error => console.error('Error creating multiple items:', error));
 				} else {
@@ -97,7 +97,7 @@ export default function executeAction<
 				const updateFn = isCalendar 
 					? CalendarsAPI.updateCalendar 
 					: SchedulesAPI.updateSchedule;
-			
+				
 				updateFn(authenticatedUserId, action.payload.id, action.payload as any)
 					.catch(error => console.error('Error updating item:', error));
 			}
@@ -108,7 +108,7 @@ export default function executeAction<
 			const reducedArr = state.filter((obj: State) => {
 				return obj.id !== action.payload.id;
 			});
-			const itemToBeRemoved = state.find(obj => action.payload.id === obj.id);
+			const itemToBeRemoved = state.find((obj: State) => action.payload.id === obj.id);
 			if (!itemToBeRemoved) return reducedArr;
 			if (reducedArr.length > 0) {
 				if (authenticatedUserId) {

@@ -54,7 +54,7 @@ export default function HolidayCheckboxList() {
         .filter(rh => !savedHolidayRegions.includes(rh.region))[0].region;
 
       getHolidayEventsByRegion(newlyAddedRegion)
-
+    
         .then((holidayCalendar: any) => {
           const calendarId = uniqueID();
           dispatchCalendars({
