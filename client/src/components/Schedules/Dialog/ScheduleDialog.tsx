@@ -12,7 +12,7 @@ import EventBlock from '../Event/EventBlock';
 
 import { ScheduleStates } from '../index.model';
 import { SetState } from '../../../contexts/index.model';
-import { SelectedSchedule } from '../../../contexts/StoreContext/types/schedule';
+import { SelectedSchedule, Schedule } from '../../../contexts/StoreContext/types/schedule';
 import { UserAction } from '../../../contexts/StoreContext/index.model';
 import { useStore, useStoreUpdater } from '../../../contexts/StoreContext';
 import { useCalendarConfig, useCalendarConfigUpdater } from '../../../contexts/CalendarConfigContext';
@@ -93,7 +93,7 @@ export default function ScheduleDialog(props: ScheduleDialogProps) {
 		setScheduleProps(setScheduleProps => ({ ...setScheduleProps, title }));
 	}
 
-	const isIdExists = savedSchedules.find(schedule => schedule.id === scheduleProps.id);
+	const isIdExists = savedSchedules.find((schedule: Schedule) => schedule.id === scheduleProps.id);
 
 	const editSchedule = () => {
 		dispatchSchedules({
