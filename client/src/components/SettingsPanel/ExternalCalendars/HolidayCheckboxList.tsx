@@ -20,13 +20,8 @@ export default function HolidayCheckboxList() {
   const [fullViewCheckList, setFullViewCheckList] = useState(false);
 
   const savedHolidayCalendars: HolidayCalendarItem[] = calendars
-    .filter(calendar => calendar.type === 'holiday')
-    .map((calendar: Calendar) => {
-      if (calendar.type === 'holiday') {
-        return calendar as HolidayCalendarItem;
-      }
-      return {} as HolidayCalendarItem;
-    });
+    .filter((calendar: Calendar): calendar is HolidayCalendarItem => calendar.type === 'holiday')
+    .map((calendar: HolidayCalendarItem) => calendar);
   const savedHolidayRegions: string[]
     = savedHolidayCalendars.map(calendar => calendar.region || '');
 
@@ -54,7 +49,7 @@ export default function HolidayCheckboxList() {
         .filter(rh => !savedHolidayRegions.includes(rh.region))[0].region;
 
       getHolidayEventsByRegion(newlyAddedRegion)
-    
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         .then((holidayCalendar: any) => {
           const calendarId = uniqueID();
           dispatchCalendars({
