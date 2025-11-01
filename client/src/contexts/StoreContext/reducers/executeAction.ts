@@ -97,7 +97,7 @@ export default function executeAction<
 				const updateFn = isCalendar 
 					? CalendarsAPI.updateCalendar 
 					: SchedulesAPI.updateSchedule;
-				
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 				updateFn(authenticatedUserId, action.payload.id, action.payload as any)
 					.catch(error => console.error('Error updating item:', error));
 			}
