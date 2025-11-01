@@ -68,12 +68,36 @@
 	border-radius: 50%;
 	& > span {
 		line-height: 10px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+		height: 100%;
 	}
 	& img {
 		border-radius: 50%;
 		@include isometric-dim($size: 40px);
 	}
 	border: 1px solid $color-lighter-gray;
+}
+
+.default-avatar {
+	@include isometric-dim($size: 40px);
+	border-radius: 50%;
+	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border: 1px solid $color-lighter-gray;
+	
+	&__initials {
+		color: #ffffff;
+		font-weight: 500;
+		font-size: 16px;
+		line-height: 1;
+		text-transform: uppercase;
+		letter-spacing: 0.5px;
+	}
 }
 
 .sign-out-btn {

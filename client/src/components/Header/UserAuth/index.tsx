@@ -1,8 +1,6 @@
 import { useEffect, useState } from 'react';
 import { GoogleAuthProvider, UserCredential, signInWithPopup } from 'firebase/auth';
 
-import UserImage from '../../../assets/icons/user.png';
-
 import { auth } from '../../../firebase.config';
 import { isUser, useFirebaseAuth } from '../../../contexts/FirebaseAuthContext';
 import { getLocalStorageNamespace } from '../../../contexts/StoreContext';
@@ -17,9 +15,28 @@ import { remove, set } from '../../../util/local-storage';
 const provider = new GoogleAuthProvider();
 auth.useDeviceLanguage();
 
+function DefaultAvatar({ email }: { email?: string | null }) {
+  const getInitials = () => {
+    if (email) {
+      const parts = email.split('@')[0].split(/[._-]/);
+      if (parts.length >= 2) {
+        return (parts[0][0] + parts[1][0]).toUpperCase();
+      }
+      return email.substring(0, 2).toUpperCase();
+    }
+    return 'U';
+  };
+
+  return (
+    <div className="default-avatar">
+      <span className="default-avatar__initials">{getInitials()}</span>
+    </div>
+  );
+}
+
 export default function UserAuth() {
   const user = useFirebaseAuth();
-  const [photoSrc, setPhotoSrc] = useState(UserImage);
+  const [photoSrc, setPhotoSrc] = useState<string | null>(null);
 
   const [
     authDialogRef,
@@ -29,8 +46,10 @@ export default function UserAuth() {
   ] = useComponentVisible();
 
   useEffect(() => {
-    if (isUser(user) && user.photoURL) {
-      setPhotoSrc(user.photoURL);
+    if (isUser(user)) {
+      setPhotoSrc(user.photoURL || null);
+    } else {
+      setPhotoSrc(null);
     }
   }, [user])
 
@@ -40,7 +59,7 @@ export default function UserAuth() {
       signOutUser: () => {
         auth.signOut()
           .then(() => {
-            setPhotoSrc(UserImage);
+            setPhotoSrc(null);
             remove(`${getLocalStorageNamespace()}_isUserAuthenticated`);
           })
       },
@@ -65,7 +84,7 @@ export default function UserAuth() {
         name: result.user.displayName || undefined,
         photoURL: result.user.photoURL || undefined,
       });
-      if (result.user.photoURL) setPhotoSrc(result.user.photoURL);
+      setPhotoSrc(result.user.photoURL || null);
       set(`${getLocalStorageNamespace()}_authenticatedUserId`, result.user.uid);
     } catch (error: unknown) {
       console.error('Error during sign in:', error);
@@ -94,7 +113,11 @@ export default function UserAuth() {
       ref={linkRef}
     >
       <span>
-        <img className='user-image' src={photoSrc} />
+        {photoSrc ? (
+          <img className='user-image' src={photoSrc} alt="User avatar" />
+        ) : (
+          <DefaultAvatar email={isUser(user) ? user?.email : null} />
+        )}
       </span>
     </button>
     <Dialog ref={authDialogRef} {...authDialogContentProps} />
