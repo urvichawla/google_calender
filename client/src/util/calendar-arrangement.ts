@@ -52,15 +52,19 @@ export const dateToday: DateUnits = {
 };
 
 export const dayjsObj = ({ year, month, day }: DateUnits) => {
-	return dayjs(`${year.toString()}-${month.toString()}-${day.toString()}`);
+	const paddedMonth = month.toString().padStart(2, '0');
+	const paddedDay = day.toString().padStart(2, '0');
+	return dayjs(`${year.toString()}-${paddedMonth}-${paddedDay}`);
 }
 
 export const dayjsObjByDay = ({ date, calendarUnit, index }: DayjsObjByDay) => {
 	const validYear = date?.year || 2000;
-	const validMonth = (date?.month ?? 0)
+	const validMonth = (date?.month ?? 1);
 	const validDay = date?.day || 1;
 
-	const dateFormat = `${validYear}-${validMonth}-${validDay}`;
+	const paddedMonth = validMonth.toString().padStart(2, '0');
+	const paddedDay = validDay.toString().padStart(2, '0');
+	const dateFormat = `${validYear}-${paddedMonth}-${paddedDay}`;
 
 	if (calendarUnit === 'day') {
 		return dayjs(dateFormat).add(index, 'day');
@@ -149,16 +153,13 @@ export function getScheduleTimeOptions() {
 	return dayTime;
 }
 
-// Note: it excludes the unit seconds "ss"
+
 export function convertDateUnitsToString(args: DateUnits) {
-	// convert month codes (1 to 12) to zero-indexed (0 to 11)
-	const monthIndex = (args.month as number) - 1;
-	const datePropsToArr: ArrayThreeOrMore<number>
-		= objKeysToArr({ ...args, month: monthIndex }) as ArrayThreeOrMore<number>;
-	return (new Date(...datePropsToArr))
-		.toISOString()
-		.replace(/[^0-9]/g, '')
-		.slice(0, -9);
+	
+	const year = args.year.toString().padStart(4, '0');
+	const month = args.month.toString().padStart(2, '0');
+	const day = args.day.toString().padStart(2, '0');
+	return `${year}${month}${day}`;
 }
 
 export function convertStringToDateUnits(stringifiedDate: string) {
