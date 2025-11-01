@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 
 import { calendar_v3 } from '@googleapis/calendar';
-import { useAppConfig } from '../../contexts/AppConfigContext';
+import { useAppConfig, useAppConfigUpdater } from '../../contexts/AppConfigContext';
 import { useStore, useStoreUpdater } from '../../contexts/StoreContext';
 import { ExternalHolidayEvent, SelectedHoliday } from './index.model';
 
@@ -31,6 +31,7 @@ export default function MainContent(props: MainContentProps):
 
   // Responsible for preventing to fetch external holiday events repeatedly
   const { visibilities } = useAppConfig();
+  const { setVisibilities } = useAppConfigUpdater();
   const { calendars, status } = useStore();
   const { dispatchSchedules, setStatus } = useStoreUpdater();
 
@@ -118,10 +119,17 @@ export default function MainContent(props: MainContentProps):
     <>
       <Header />
       <main className='main'>
+        <Sidebar />
+        {visibilities.sidebar && (
+          <div 
+            className='sidebar-overlay'
+            onClick={() => {
+              setVisibilities((vis: any) => ({ ...vis, sidebar: false }));
+            }}
+          />
+        )}
         {
-          visibilities.sidebar
-            ? <Sidebar />
-            : <CreateSchedule />
+          !visibilities.sidebar && <CreateSchedule />
         }
         <Calendar />
         <DialogController />

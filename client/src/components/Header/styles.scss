@@ -31,6 +31,91 @@
 	}
 }
 
+@media (max-width: $screen-breakpoint-md) {
+	.header {
+		height: 56px;
+		
+		&__inner {
+			padding: 0 8px;
+			flex-wrap: wrap;
+			
+			> div:first-child {
+				flex: 1 1 auto;
+				min-width: 0;
+			}
+			
+			> div:last-child {
+				flex: 0 0 auto;
+			}
+			
+			div:not(.logo):not([class^=dialog-inner]):not([class^=calendar]):not([class^=numerical-day]){
+				gap: 0 0.5rem;
+			}
+		}
+	}
+	
+	.header-text {
+		font-size: 0.9rem;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		max-width: 120px;
+	}
+	
+	.logo__text {
+		font-size: 16px;
+		display: none;
+	}
+	
+	.header-input {
+		padding: 6px 8px;
+		font-size: 13px;
+	}
+	
+	.settings-icon-wrapper,
+	.user-image-wrapper {
+		@include isometric-dim($size: 36px);
+		
+		& > img {
+			@include isometric-dim($size: 24px);
+		}
+	}
+	
+	.default-avatar {
+		@include isometric-dim($size: 36px);
+		
+		&__initials {
+			font-size: 14px;
+		}
+	}
+}
+
+@media (max-width: $screen-breakpoint-xsm) {
+	.header {
+		&__inner {
+			> div:first-child {
+				width: 100%;
+			}
+			
+			> div:last-child {
+				width: 100%;
+				justify-content: flex-end;
+				margin-top: 4px;
+			}
+		}
+	}
+	
+	.header-text {
+		max-width: 80px;
+		font-size: 0.85rem;
+	}
+	
+	.header-input {
+		padding: 5px 6px;
+		font-size: 12px;
+	}
+}
+
 .header-text {
 	font-family: 'Noto Sans SC', Helvetica, Arial, sans-serif;
 	width: max-content;
